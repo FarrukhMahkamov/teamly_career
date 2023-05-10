@@ -2,31 +2,37 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/FarrukhMahkamov/teamly_career/internal/repository"
 	"github.com/FarrukhMahkamov/teamly_career/internal/service"
 	handler "github.com/FarrukhMahkamov/teamly_career/internal/transport/http"
 	"github.com/FarrukhMahkamov/teamly_career/pkg"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
 func main() {
 	if err := InitConfig(); err != nil {
-		log.Fatalf("error initializing configs: %s", err.Error())
+		logrus.Fatalf("error initializing configs: %s", err.Error())
 	}
 
+	if err := godotenv.Load(); err != nil {
+		logrus.Fatalf("error loading env variables: %s", err.Error())
+	}
 	db, err := pkg.NewPostgresDB(pkg.PostgresConfig{
 		Host:     viper.GetString("DBHOST"),
 		Port:     viper.GetString("DBPORT"),
 		Username: viper.GetString("DBUSERNAME"),
 		DBName:   viper.GetString("DBNAME"),
-		Password: viper.GetString("DBPASSWORD"),
+		Password: os.Getenv("DBPASSWORD"),
 		SSLMode:  viper.GetString("SSLMODE"),
 	})
 
 	if err != nil {
-		log.Fatalf("error initializing db: %s", err.Error())
+		logrus.Fatalf("error initializing db: %s", err.Error())
 	}
 
 	repositories := repository.NewRepository(db)
@@ -46,5 +52,3 @@ func InitConfig() error {
 
 	return viper.ReadInConfig()
 }
-
-// migrate create -ext sql -dir ./schema/migrations -seq init

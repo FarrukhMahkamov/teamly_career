@@ -13,7 +13,7 @@ type UserRepository interface {
 }
 
 type VacancyRepository interface {
-}	
+}
 
 type VacancyDetailRepository interface {
 }

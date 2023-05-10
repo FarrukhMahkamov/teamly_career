@@ -32,3 +32,5 @@ func InitConfig() error {
 
 	return viper.ReadInConfig()
 }
+
+// migrate create -ext sql -dir ./schema/migrations -seq init

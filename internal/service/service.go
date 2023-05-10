@@ -1,5 +1,7 @@
 package service
 
+import "github.com/FarrukhMahkamov/teamly_career/internal/repository"
+
 type TeamService interface {
 }
 
@@ -29,4 +31,8 @@ type Service struct {
 	VacancyService
 	VacancyDetailService
 	UserFileService
+}
+
+func NewService(repository *repository.Repository) *Service {
+	return &Service{}
 }

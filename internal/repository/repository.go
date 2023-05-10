@@ -13,7 +13,7 @@ type UserRepository interface {
 }
 
 type VacancyRepository interface {
-}
+}	
 
 type VacancyDetailRepository interface {
 }
@@ -29,4 +29,8 @@ type Repository struct {
 	VacancyRepository
 	VacancyDetailRepository
 	UserFileRepository
+}
+
+func NewRepository() *Repository {
+	return &Repository{}
 }

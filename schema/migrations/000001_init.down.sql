@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS tbl_teams;
+DROP TABLE IF EXISTS tbl_team;

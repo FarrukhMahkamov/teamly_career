@@ -1,36 +1,36 @@
 package repository
 
-import "github.com/jmoiron/sqlx"
+import (
+	"github.com/FarrukhMahkamov/teamly_career/internal/core"
+	"github.com/jmoiron/sqlx"
+)
 
-type TeamRepository interface {
+type Team interface {
+	GetTeams() ([]core.Team, error)
 }
 
-type JobCategoryRepository interface {
+type Auth interface {
 }
 
-type AuthRepository interface {
+type User interface {
 }
 
-type UserRepository interface {
+type Vacancy interface {
 }
 
-type VacancyRepository interface {
+type VacancyDetail interface {
 }
 
-type VacancyDetailRepository interface {
-}
-
-type UserFileRepository interface {
+type UserFile interface {
 }
 
 type Repository struct {
-	TeamRepository
-	JobCategoryRepository
-	AuthRepository
-	UserRepository
-	VacancyRepository
-	VacancyDetailRepository
-	UserFileRepository
+	Team
+	Auth
+	User
+	Vacancy
+	VacancyDetail
+	UserFile
 }
 
 func NewRepository(db *sqlx.DB) *Repository {

@@ -2,37 +2,33 @@ package service
 
 import "github.com/FarrukhMahkamov/teamly_career/internal/repository"
 
-type TeamService interface {
+type Team interface {
 }
 
-type JobCategory interface {
+type Auth interface {
 }
 
-type AuthService interface {
+type User interface {
 }
 
-type UserService interface {
+type Vacancy interface {
 }
 
-type VacancyService interface {
+type VacancyDetail interface {
 }
 
-type VacancyDetailService interface {
-}
-
-type UserFileService interface {
+type UserFile interface {
 }
 
 type Service struct {
-	TeamService
-	JobCategory
-	AuthService
-	UserService
-	VacancyService
-	VacancyDetailService
-	UserFileService
+	Team
+	Auth
+	User
+	Vacancy
+	VacancyDetail
+	UserFile
 }
 
-func NewService(repository *repository.Repository) *Service {
+func NewService(repository repository.Repository) *Service {
 	return &Service{}
 }

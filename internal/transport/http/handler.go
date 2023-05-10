@@ -20,10 +20,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	{
 		v1 := api.Group("/v1")
 		{
-			JobCategory := v1.Group("/job-category")
-			{
-				JobCategory.GET("/", h.GetJobCategories)
-			}
+			v1.GET("/teams", h.GetTeams)
 		}
 	}
 

@@ -1,7 +1,9 @@
 PORT       : "8000"
+DB:
 DBHOST     : "localhost"
 DBPORT     : "5435"
 DBUSERNAME : "postgres"
 DBNAME     : "postgres"
+DBPASSWORD : "teamly_career"
 SSLMODE    : "disable"
 

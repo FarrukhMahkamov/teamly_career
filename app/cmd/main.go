@@ -7,6 +7,7 @@ import (
 	"github.com/FarrukhMahkamov/teamly_career/internal/service"
 	handler "github.com/FarrukhMahkamov/teamly_career/internal/transport/http"
 	"github.com/FarrukhMahkamov/teamly_career/pkg"
+	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 )
 
@@ -15,7 +16,20 @@ func main() {
 		log.Fatalf("error initializing configs: %s", err.Error())
 	}
 
-	repositories := repository.NewRepository()
+	db, err := pkg.NewPostgresDB(pkg.PostgresConfig{
+		Host:     viper.GetString("DBHOST"),
+		Port:     viper.GetString("DBPORT"),
+		Username: viper.GetString("DBUSERNAME"),
+		DBName:   viper.GetString("DBNAME"),
+		Password: viper.GetString("DBPASSWORD"),
+		SSLMode:  viper.GetString("SSLMODE"),
+	})
+
+	if err != nil {
+		log.Fatalf("error initializing db: %s", err.Error())
+	}
+
+	repositories := repository.NewRepository(db)
 	services := service.NewService(repositories)
 	handlers := handler.NewHandler(services)
 

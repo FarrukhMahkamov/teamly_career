@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/FarrukhMahkamov/teamly_career/internal/repository"
@@ -15,13 +14,20 @@ import (
 )
 
 func main() {
+	//set formatter for logrus
+	logrus.SetFormatter(new(logrus.JSONFormatter))
+
+	//set config file
 	if err := InitConfig(); err != nil {
 		logrus.Fatalf("error initializing configs: %s", err.Error())
 	}
 
+	//set env variables
 	if err := godotenv.Load(); err != nil {
 		logrus.Fatalf("error loading env variables: %s", err.Error())
 	}
+
+	//set db connection
 	db, err := pkg.NewPostgresDB(pkg.PostgresConfig{
 		Host:     viper.GetString("DBHOST"),
 		Port:     viper.GetString("DBPORT"),
@@ -31,24 +37,27 @@ func main() {
 		SSLMode:  viper.GetString("SSLMODE"),
 	})
 
+	//check if db connection is successful
 	if err != nil {
 		logrus.Fatalf("error initializing db: %s", err.Error())
 	}
 
+	//set repositories, services and handlers
 	repositories := repository.NewRepository(db)
 	services := service.NewService(repositories)
 	handlers := handler.NewHandler(services)
 
 	server := new(pkg.Server)
 
+	//run server
 	if err := server.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
-		log.Fatalf("error occured while running http server: %s", err.Error())
+		logrus.Fatalf("error occured while running http server: %s", err.Error())
 	}
 }
 
 func InitConfig() error {
 	viper.AddConfigPath("config")
-	viper.SetConfigName("config")
+	viper.SetConfigName("confsig")
 
 	return viper.ReadInConfig()
 }

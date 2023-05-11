@@ -1,8 +1,12 @@
 package service
 
-import "github.com/FarrukhMahkamov/teamly_career/internal/repository"
+import (
+	"github.com/FarrukhMahkamov/teamly_career/internal/core"
+	"github.com/FarrukhMahkamov/teamly_career/internal/repository"
+)
 
 type Team interface {
+	GetTeams() ([]core.Team, error)
 }
 
 type Auth interface {
@@ -29,6 +33,8 @@ type Service struct {
 	UserFile
 }
 
-func NewService(repository repository.Repository) *Service {
-	return &Service{}
+func NewService(repository *repository.Repository) *Service {
+	return &Service{
+		Team: NewTeamService(repository),
+	}
 }

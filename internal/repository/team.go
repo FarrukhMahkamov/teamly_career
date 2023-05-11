@@ -24,7 +24,7 @@ func (r *TeamRepository) GetTeams() ([]core.Team, error) {
 	defer cancel()
 
 	// Declare a slice of Team to hold the query results.
-	var teams []core.Team
+	var Teams []core.Team
 
 	// Execute query
 	rows, err := r.db.QueryxContext(ctx, query.GetTeams)
@@ -35,14 +35,16 @@ func (r *TeamRepository) GetTeams() ([]core.Team, error) {
 
 	// Iterate over rows
 	for rows.Next() {
+		// Declare a Team to hold each row's data
 		var team core.Team
-		err := rows.StructScan(&team)
-		if err != nil {
+
+		// Unmarshal the row's data into team
+		if err := rows.StructScan(&team); err != nil {
 			return nil, err
 		}
 
-		// Append team to slice
-		teams = append(teams, team)
+		// Append team to teams
+		Teams = append(Teams, team)
 	}
 
 	// Check for errors during row iteration
@@ -51,5 +53,5 @@ func (r *TeamRepository) GetTeams() ([]core.Team, error) {
 	}
 
 	// Return result and nil error
-	return teams, nil
+	return Teams, nil
 }

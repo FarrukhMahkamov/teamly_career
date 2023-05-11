@@ -37,20 +37,20 @@ func (h *Handler) AddVacancy(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
 	}
 
-	// VacancyDetailRequest := core.VacancyDetailRequest{
-	// 	VacancyId:    VacancyId,
-	// 	Level:        AddVacancyRequest.Level,
-	// 	Experience:   AddVacancyRequest.Experience,
-	// 	WorkType:     AddVacancyRequest.WorkType,
-	// 	WorkTime:     AddVacancyRequest.WorkTime,
-	// 	WorkLocation: AddVacancyRequest.WorkLocation,
-	// 	Salary:       AddVacancyRequest.Salary,
-	// }
+	VacancyDetailRequest := core.VacancyDetailRequest{
+		VacancyId:    VacancyId,
+		Level:        AddVacancyRequest.Level,
+		Experience:   AddVacancyRequest.Experience,
+		WorkType:     AddVacancyRequest.WorkType,
+		WorkTime:     AddVacancyRequest.WorkTime,
+		WorkLocation: AddVacancyRequest.WorkLocation,
+		Salary:       AddVacancyRequest.Salary,
+	}
 
-	// _, err = h.service.VacancyDetail.AddVacancyDetail(VacancyDetailRequest)
-	// if err != nil {
-	// 	c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
-	// }
+	_, err = h.service.VacancyDetail.AddVacancyDetail(VacancyDetailRequest)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
+	}
 
 	c.JSON(http.StatusOK, VacancyId)
 }

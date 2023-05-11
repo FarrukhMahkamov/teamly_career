@@ -16,6 +16,7 @@ type User interface {
 }
 
 type Vacancy interface {
+	GetVacancies() ([]core.Vacancy, error)
 }
 
 type VacancyDetail interface {
@@ -35,6 +36,7 @@ type Service struct {
 
 func NewService(repository *repository.Repository) *Service {
 	return &Service{
-		Team: NewTeamService(repository),
+		Team:    NewTeamService(repository),
+		Vacancy: NewVacancyService(repository),
 	}
 }

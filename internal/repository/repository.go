@@ -16,6 +16,7 @@ type User interface {
 }
 
 type Vacancy interface {
+	GetVacancies() ([]core.Vacancy, error)
 }
 
 type VacancyDetail interface {
@@ -35,6 +36,7 @@ type Repository struct {
 
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
-		Team: NewTeamRepository(db),
+		Team:    NewTeamRepository(db),
+		Vacancy: NewVacancyRepository(db),
 	}
 }

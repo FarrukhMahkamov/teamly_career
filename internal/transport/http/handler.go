@@ -21,6 +21,11 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		v1 := api.Group("/v1")
 		{
 			v1.GET("/teams", h.GetTeams)
+
+			vacancies := v1.Group("/vacancies")
+			{
+				vacancies.GET("/", h.GetVacancies)
+			}
 		}
 	}
 

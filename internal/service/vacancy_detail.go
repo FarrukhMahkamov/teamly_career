@@ -6,17 +6,17 @@ import (
 )
 
 type VacancyDetailService struct {
-	repository *repository.Repository
+	repository repository.VacancyDetail
 }
 
-func NewVacancyDetailService(repository *repository.Repository) *VacancyDetailService {
+func NewVacancyDetailService(repository repository.VacancyDetail) *VacancyDetailService {
 	return &VacancyDetailService{repository: repository}
 }
 
 func (s *VacancyDetailService) GetVacancyDetails(VacancyID int64) (*core.VacancyDetail, error) {
-	return s.repository.VacancyDetail.GetVacancyDetails(VacancyID)
+	return s.repository.GetVacancyDetails(VacancyID)
 }
 
 func (s *VacancyDetailService) AddVacancyDetail(VacancyDetailRequest core.VacancyDetailRequest) (int64, error) {
-	return s.repository.VacancyDetail.AddVacancyDetail(VacancyDetailRequest)
+	return s.repository.AddVacancyDetail(VacancyDetailRequest)
 }

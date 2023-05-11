@@ -16,7 +16,7 @@ func NewUserService(repository repository.User) *UserService {
 }
 
 // RegistrUser ...
-func (s *UserService) RegistrUser(UserRequest core.UserRequest) (int64, error) {
+func (s *UserService) RegisterUser(UserRequest core.UserRequest) (int64, error) {
 	//Hash password
 	UserPassword, err := pkg.HashPassword(UserRequest.UserPassword)
 	if err != nil {

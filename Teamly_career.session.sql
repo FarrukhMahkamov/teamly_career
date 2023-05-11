@@ -1,1 +1,1 @@
-SELECT * FROM tbl_vacancy_detail
+SELECT * FROM tbl_user

@@ -14,6 +14,7 @@ type Auth interface {
 }
 
 type User interface {
+	RegisterUser(UserRequest core.UserRequest) (int64, error)
 }
 
 type Vacancy interface {
@@ -44,5 +45,6 @@ func NewService(repository *repository.Repository) *Service {
 		Vacancy:       NewVacancyService(repository),
 		VacancyDetail: NewVacancyDetailService(repository),
 		User:          NewUserService(repository),
+		Auth:          NewAuthService(repository),
 	}
 }

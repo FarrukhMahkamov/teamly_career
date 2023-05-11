@@ -1,9 +1,12 @@
 package pkg
 
 import (
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/joho/godotenv"
+	"github.com/sirupsen/logrus"
 )
 
 type AuthClaims struct {
@@ -11,13 +14,18 @@ type AuthClaims struct {
 	jwt.RegisteredClaims
 }
 
-const (
-	salt       = "teamly"
-	SigningKey = "teamly"
-	TokenTTL   = 14 * 24 * time.Hour
+var (
+	TokenTTL = 14 * 24 * time.Hour
 )
 
-// GenerateToken generates a new JWT token with the given user ID
+func InitEnv() error {
+	if err := godotenv.Load(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func GenerateToken(userID int64) (string, error) {
 	claims := &AuthClaims{
 		UserID: userID,
@@ -27,6 +35,16 @@ func GenerateToken(userID int64) (string, error) {
 			Issuer:    "teamly",
 		},
 	}
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(SigningKey))
+
+	signingKey := os.Getenv("SIGNINGKEY")
+
+	SignedToken, err := token.SignedString([]byte(signingKey))
+	if err != nil {
+		logrus.Errorf("failed to sign JWT token: %s", err)
+		return "", err
+	}
+
+	return SignedToken, nil
 }

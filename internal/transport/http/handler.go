@@ -27,6 +27,12 @@ func (h *Handler) InitRoutes() *gin.Engine {
 				vacancies.GET("/", h.GetVacancies)
 				vacancies.POST("/", h.AddVacancy)
 			}
+
+			auth := v1.Group("/auth")
+			{
+				auth.POST("/sign-up", h.SignUp)
+				auth.POST("/sign-in", h.SignIn)
+			}
 		}
 	}
 

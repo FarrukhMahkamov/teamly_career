@@ -11,6 +11,17 @@ type VacancyDetail struct {
 	WorkType        string    `json:"work_type" db:"work_type"`
 	WorkTime        string    `json:"work_time" db:"work_time"`
 	WorkLocation    string    `json:"work_location" db:"work_location"`
+	Salary          string    `json:"salary" db:"salary"`
 	CreatedAt       time.Time `json:"created_at" db:"created_at" format:"15:04:05"`
 	UpdatedAt       time.Time `json:"updated_at" db:"updated_at" format:"15:04:05"`
+}
+
+type VacancyDetailRequest struct {
+	VacancyId    int64  `json:"vacancy_id" db:"vacancy_id"`
+	Level        string `json:"level" db:"level"`
+	Experience   string `json:"experience" db:"experience"`
+	WorkType     string `json:"work_type" db:"work_type"`
+	WorkTime     string `json:"work_time" db:"work_time"`
+	WorkLocation string `json:"work_location" db:"work_location"`
+	Salary       string `json:"salary" db:"salary"`
 }

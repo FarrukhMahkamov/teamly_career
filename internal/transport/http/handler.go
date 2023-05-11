@@ -25,6 +25,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			vacancies := v1.Group("/vacancies")
 			{
 				vacancies.GET("/", h.GetVacancies)
+				vacancies.POST("/", h.AddVacancy)
 			}
 		}
 	}

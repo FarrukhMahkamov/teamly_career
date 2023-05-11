@@ -17,10 +17,12 @@ type User interface {
 
 type Vacancy interface {
 	GetVacancies() ([]core.Vacancy, error)
+	AddVacancy(VacancyRequest core.VacancyRequest) (int64, error)
 }
 
 type VacancyDetail interface {
 	GetVacancyDetails(VacancyID int64) (*core.VacancyDetail, error)
+	AddVacancyDetail(VacancyDetailRequest core.VacancyDetailRequest) (int64, error)
 }
 
 type UserFile interface {

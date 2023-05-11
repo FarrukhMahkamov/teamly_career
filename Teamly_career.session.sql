@@ -1,1 +1,1 @@
-DROP TABLE schema_migrations
+SELECT * FROM tbl_vacancy_detail

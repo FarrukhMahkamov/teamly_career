@@ -16,3 +16,7 @@ func NewVacancyService(repository *repository.Repository) *VacancyService {
 func (s *VacancyService) GetVacancies() ([]core.Vacancy, error) {
 	return s.repository.GetVacancies()
 }
+
+func (s *VacancyService) AddVacancy(VacancyRequest core.VacancyRequest) (int64, error) {
+	return s.repository.AddVacancy(VacancyRequest)
+}

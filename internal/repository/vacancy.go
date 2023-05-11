@@ -55,3 +55,27 @@ func (r *VacancyRepository) GetVacancies() ([]core.Vacancy, error) {
 	// Return result and nil error
 	return Vacancies, nil
 }
+
+// AddVacancy adds a new vacancy
+func (r *VacancyRepository) AddVacancy(VacancyRequest core.VacancyRequest) (int64, error) {
+	// Set timeout for query
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	//Execute query and return vacancy id
+	var VacancyId int64
+
+	err := r.db.QueryRowxContext(ctx, query.AddVacancy,
+		VacancyRequest.VacancyTeamId,
+		VacancyRequest.VacancyStatusId,
+		VacancyRequest.Position,
+		VacancyRequest.VacancyDescription).Scan(&VacancyId)
+
+	// Check for errors
+	if err != nil {
+		return 0, err
+	}
+
+	// Return result and nil error
+	return VacancyId, nil
+}

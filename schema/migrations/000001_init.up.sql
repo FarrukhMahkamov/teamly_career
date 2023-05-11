@@ -3,6 +3,20 @@ CREATE TABLE tbl_team (
     team_name VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE tbl_user (
+    user_id SERIAL PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
+    user_second_name VARCHAR(255) NOT NULL,
+    user_email VARCHAR(255) NOT NULL,
+    user_phone VARCHAR(255) NOT NULL,
+    user_password VARCHAR(255) NOT NULL,
+    user_photo VARCHAR(255) NOT NULL,
+    user_status INT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+);
+
 CREATE TABLE tbl_vacancy 
 (
     vacancy_id SERIAL PRIMARY KEY,

@@ -10,3 +10,4 @@ ALTER TABLE tbl_vacancy_detail DROP CONSTRAINT tbl_vacancy_detail_vacancy_id_fke
 DROP TABLE tbl_vacancy;
 DROP TABLE tbl_team;
 DROP TABLE tbl_vacancy_detail;
+DROP TABLE tbl_user;

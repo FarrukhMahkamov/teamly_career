@@ -10,6 +10,7 @@ type Team interface {
 }
 
 type Auth interface {
+	LoginUser(UserLoginRequest core.UserLoginRequest) (*core.User, error)
 }
 
 type User interface {
@@ -42,5 +43,6 @@ func NewService(repository *repository.Repository) *Service {
 		Team:          NewTeamService(repository),
 		Vacancy:       NewVacancyService(repository),
 		VacancyDetail: NewVacancyDetailService(repository),
+		User:          NewUserService(repository),
 	}
 }

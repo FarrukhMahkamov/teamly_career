@@ -10,9 +10,11 @@ type Team interface {
 }
 
 type Auth interface {
+	LoginUser(UserLoginRequest core.UserLoginRequest) (*core.User, error)
 }
 
 type User interface {
+	RegistrUser(UserRequest core.UserRequest) (int64, error)
 }
 
 type Vacancy interface {
@@ -42,5 +44,7 @@ func NewRepository(db *sqlx.DB) *Repository {
 		Team:          NewTeamRepository(db),
 		Vacancy:       NewVacancyRepository(db),
 		VacancyDetail: NewVacancyDetailRepository(db),
+		User:          NewUserRepository(db),
+		Auth:          NewAuthRepository(db),
 	}
 }

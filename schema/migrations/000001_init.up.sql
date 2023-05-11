@@ -16,6 +16,21 @@ CREATE TABLE tbl_vacancy
     FOREIGN KEY (vacancy_team_id) REFERENCES tbl_team(team_id)
 );
 
+CREATE TABLE tbl_vacancy_detail 
+(
+    vacancy_detail_id SERIAL PRIMARY KEY,
+    vacancy_id INT NOT NULL,
+    apply_count INT NOT NULL,
+    level VARCHAR(255) NOT NULL,
+    experience VARCHAR(255) NOT NULL,
+    work_type VARCHAR(255) NOT NULL,
+    work_time VARCHAR(255) NOT NULL,
+    work_location VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (vacancy_id) REFERENCES tbl_vacancy(vacancy_id)
+);
+
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -24,10 +39,16 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE TRIGGER trg_update_updated_at_detail
+BEFORE UPDATE ON tbl_vacancy_detail
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at_column();
+
 CREATE TRIGGER trg_update_updated_at
 BEFORE UPDATE ON tbl_vacancy
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
+
 
 
 INSERT INTO tbl_team (team_name) VALUES ('Frontend');

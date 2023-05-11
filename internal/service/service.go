@@ -20,6 +20,7 @@ type Vacancy interface {
 }
 
 type VacancyDetail interface {
+	GetVacancyDetails(VacancyID int64) (*core.VacancyDetail, error)
 }
 
 type UserFile interface {
@@ -36,7 +37,8 @@ type Service struct {
 
 func NewService(repository *repository.Repository) *Service {
 	return &Service{
-		Team:    NewTeamService(repository),
-		Vacancy: NewVacancyService(repository),
+		Team:          NewTeamService(repository),
+		Vacancy:       NewVacancyService(repository),
+		VacancyDetail: NewVacancyDetailService(repository),
 	}
 }

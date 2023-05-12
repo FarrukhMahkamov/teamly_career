@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"errors"
 	"os"
 	"time"
 
@@ -47,4 +48,26 @@ func GenerateToken(userID int64) (string, error) {
 	}
 
 	return SignedToken, nil
+}
+
+func ParseToken(token string) (int64, error) {
+	claims := &AuthClaims{}
+
+	// replace with your own secret key
+	parsedToken, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, jwt.ErrSignatureInvalid
+		}
+		return []byte(os.Getenv("SIGNINGKEY")), nil
+	})
+	if err != nil {
+		return 0, err
+	}
+
+	claims, ok := parsedToken.Claims.(*AuthClaims)
+	if !ok {
+		return 0, errors.New("invalid token claims")
+	}
+
+	return claims.UserID, nil
 }

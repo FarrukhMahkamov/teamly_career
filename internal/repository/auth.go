@@ -35,6 +35,8 @@ func (r *AuthRepositort) LoginUser(UserLoginRequest core.UserLoginRequest) (*cor
 		&User.UserPhone,
 		&User.UserPassword,
 		&User.UserPhoto,
+		&User.CreatedAt,
+		&User.UpdatedAt,
 	)
 
 	//Check error

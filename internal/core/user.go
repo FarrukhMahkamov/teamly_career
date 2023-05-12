@@ -43,3 +43,10 @@ type UserLoginResponse struct {
 	CreatedAt      time.Time `json:"created_at"`
 	UpdatedAt      time.Time `json:"updated_at"`
 }
+
+type UserPersonalInfoUpdateRequest struct {
+	UserName       string `json:"user_name" db:"user_name" binding:"required" validate:"required,min=2,max=100"`
+	UserSecondName string `json:"user_second_name" db:"user_second_name" binding:"required" validate:"required,min=2,max=100"`
+	UserEmail      string `json:"user_email" db:"user_email" binding:"required" validate:"required,email"`
+	UserPhone      string `json:"user_phone" db:"user_phone" binding:"required" validate:"required,min=9,max=13"`
+}

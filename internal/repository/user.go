@@ -44,3 +44,27 @@ func (r *UserRepository) RegistrUser(UserRequest core.UserRequest) (int64, error
 	//Return user_id
 	return UserID, nil
 }
+
+// UserPersonalInfoUpdate ...
+func (r *UserRepository) UserPersonalInfoUpdate(UserPersonalInfoUpdateRequest core.UserPersonalInfoUpdateRequest, UserID int64) error {
+	//set timout for query
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	//Execute query
+	_, err := r.db.ExecContext(ctx, query.UserPersonalInfoUpdate,
+		UserPersonalInfoUpdateRequest.UserName,
+		UserPersonalInfoUpdateRequest.UserSecondName,
+		UserPersonalInfoUpdateRequest.UserEmail,
+		UserPersonalInfoUpdateRequest.UserPhone,
+		UserID,
+	)
+
+	//Check error
+	if err != nil {
+		return err
+	}
+
+	//Return nil
+	return nil
+}

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/FarrukhMahkamov/teamly_career/internal/service"
+	"github.com/FarrukhMahkamov/teamly_career/internal/transport/http/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,7 +24,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	router.GET("/serve-file/:destination/:file_name", h.ServeFile)
 
 	api := router.Group("/api")
-	// api.Use(middleware.AuthMiddleware())
+	api.Use(middleware.AuthMiddleware())
 	{
 		v1 := api.Group("/v1")
 		{
@@ -33,6 +34,11 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			{
 				vacancies.GET("/", h.GetVacancies)
 				vacancies.POST("/", h.AddVacancy)
+			}
+
+			users := v1.Group("/users")
+			{
+				users.PUT("/personal-info/:user_id", h.UserPersonalInfoUpdate)
 			}
 		}
 	}

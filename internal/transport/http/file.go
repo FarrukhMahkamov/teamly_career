@@ -10,11 +10,11 @@ import (
 func (h *Handler) FileUpload(c *gin.Context) {
 	Destination := c.Param("destination")
 
-	file, _ := c.FormFile("file")
-	log.Println(file.Filename)
+	File, _ := c.FormFile("file")
+	log.Println(File.Filename)
 
 	//there are 2 types of files: cv and photo
-	FileName, err := pkg.UploadRequestFile(file, Destination)
+	FileName, err := pkg.UploadRequestFile(File, Destination)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": err.Error(),
@@ -23,7 +23,7 @@ func (h *Handler) FileUpload(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{
-		"file": FileName,
+		"uploaded_file": FileName,
 	})
 }
 

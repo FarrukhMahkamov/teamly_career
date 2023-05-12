@@ -29,3 +29,8 @@ func (s *UserService) RegisterUser(UserRequest core.UserRequest) (int64, error) 
 	//Execute query
 	return s.repository.RegistrUser(UserRequest)
 }
+
+// UserPersonalInfoUpdate ...
+func (s *UserService) UserPersonalInfoUpdate(UserPersonalInfoUpdateRequest core.UserPersonalInfoUpdateRequest, UserID int64) error {
+	return s.repository.UserPersonalInfoUpdate(UserPersonalInfoUpdateRequest, UserID)
+}

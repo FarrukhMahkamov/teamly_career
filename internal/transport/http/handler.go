@@ -20,7 +20,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	router.POST("/sign-in", h.SignIn)
 
 	router.POST("/file-upload/:destination", h.FileUpload)
-	router.GET("/serve-file/:file_name", h.ServeFile)
+	router.GET("/serve-file/:destination/:file_name", h.ServeFile)
 
 	api := router.Group("/api")
 	// api.Use(middleware.AuthMiddleware())

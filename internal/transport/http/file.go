@@ -29,6 +29,7 @@ func (h *Handler) FileUpload(c *gin.Context) {
 
 func (h *Handler) ServeFile(c *gin.Context) {
 	FileName := c.Param("file_name")
+	Destination := c.Param("destination")
 
-	c.File("./assets/cv/" + FileName)
+	c.File("./assets/images/" + Destination + "/" + FileName)
 }

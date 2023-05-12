@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"errors"
 	"io"
 	"mime/multipart"
 	"os"
@@ -19,7 +20,23 @@ func UploadRequestFile(File *multipart.FileHeader, Destination string) (string, 
 
 	NewFileName := uuid.New().String() + filepath.Ext(File.Filename)
 
-	DestinationFile, err := os.Create(filepath.Join(Destination, NewFileName))
+	var Folder string
+
+	switch Destination {
+	case "cv":
+		Folder = "assets/cv"
+	case "photo":
+		Folder = "assets/photo"
+	default:
+		return "", errors.New("'nvalid destination")
+	}
+
+	err = os.MkdirAll(Destination, os.ModePerm)
+	if err != nil {
+		return "", err
+	}
+
+	DestinationFile, err := os.Create(filepath.Join(Folder, NewFileName))
 	if err != nil {
 		return "", err
 	}

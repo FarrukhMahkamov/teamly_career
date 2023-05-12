@@ -50,3 +50,8 @@ type UserPersonalInfoUpdateRequest struct {
 	UserEmail      string `json:"user_email" db:"user_email" binding:"required" validate:"required,email"`
 	UserPhone      string `json:"user_phone" db:"user_phone" binding:"required" validate:"required,min=9,max=13"`
 }
+
+type UpdateUserPasswordRequest struct {
+	OldPassword string `json:"old_password" db:"old_password" binding:"required" validate:"required,min=8,max=100"`
+	NewPassword string `json:"new_password" db:"new_password" binding:"required" validate:"required,min=8,max=100"`
+}

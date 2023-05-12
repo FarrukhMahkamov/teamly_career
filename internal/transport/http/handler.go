@@ -39,6 +39,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			users := v1.Group("/users")
 			{
 				users.PUT("/personal-info/:user_id", h.UserPersonalInfoUpdate)
+				users.PUT("/password/:user_id", h.UpdateUserPassword)
 			}
 		}
 	}

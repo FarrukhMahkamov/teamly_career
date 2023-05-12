@@ -68,3 +68,42 @@ func (r *UserRepository) UserPersonalInfoUpdate(UserPersonalInfoUpdateRequest co
 	//Return nil
 	return nil
 }
+
+// GetUserPassword ...
+func (r *UserRepository) GetUserPassword(UserID int64) (string, error) {
+	//set timout for query
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	//Declare var for hold user_password
+	var UserPassword string
+
+	//Execute query and scan user_password
+	err := r.db.QueryRowContext(ctx, query.GetUserPassword, UserID).Scan(&UserPassword)
+
+	//Check error
+	if err != nil {
+		return "", err
+	}
+
+	//Return user_password
+	return UserPassword, nil
+}
+
+// UpdateUserPassword ...
+func (r *UserRepository) UpdateUserPassword(UserID int64, UserPassword string) error {
+	//set timout for query
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	//Execute query
+	_, err := r.db.ExecContext(ctx, query.UpdateUserPassword, UserPassword, UserID)
+
+	//Check error
+	if err != nil {
+		return err
+	}
+
+	//Return nil
+	return nil
+}

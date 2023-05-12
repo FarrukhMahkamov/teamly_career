@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/FarrukhMahkamov/teamly_career/internal/core"
@@ -33,8 +32,6 @@ func (h *Handler) UserPersonalInfoUpdate(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(UserID)
-
 	var UserPersonalInfoUpdateRequest core.UserPersonalInfoUpdateRequest
 	if err := c.BindJSON(&UserPersonalInfoUpdateRequest); err != nil {
 		c.AbortWithStatusJSON(500, err.Error())
@@ -47,6 +44,29 @@ func (h *Handler) UserPersonalInfoUpdate(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{
-		"User_id": UserID,
+		"Message": "Profile details updated successfully",
+	})
+}
+
+func (h *Handler) UpdateUserPassword(c *gin.Context) {
+	UserID, err := strconv.Atoi(c.Param("user_id"))
+	if err != nil {
+		c.AbortWithStatusJSON(500, err.Error())
+		return
+	}
+
+	var UpdateUserPasswordRequest core.UpdateUserPasswordRequest
+	if err := c.BindJSON(&UpdateUserPasswordRequest); err != nil {
+		c.AbortWithStatusJSON(500, err.Error())
+		return
+	}
+
+	if err := h.service.User.UpdateUserPassword(int64(UserID), UpdateUserPasswordRequest); err != nil {
+		c.AbortWithStatusJSON(500, err.Error())
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"Message": "Password updated successfully",
 	})
 }

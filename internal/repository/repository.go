@@ -16,6 +16,8 @@ type Auth interface {
 type User interface {
 	RegistrUser(UserRequest core.UserRequest) (int64, error)
 	UserPersonalInfoUpdate(UserPersonalInfoUpdateRequest core.UserPersonalInfoUpdateRequest, UserID int64) error
+	GetUserPassword(UserID int64) (string, error)
+	UpdateUserPassword(UserID int64, UserPassword string) error
 }
 
 type Vacancy interface {

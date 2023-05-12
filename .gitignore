@@ -1,2 +1,5 @@
 .vscode
 .env
+
+assets/images/cv/*
+assets/images/photo/*

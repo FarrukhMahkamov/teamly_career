@@ -24,9 +24,9 @@ func UploadRequestFile(File *multipart.FileHeader, Destination string) (string, 
 
 	switch Destination {
 	case "cv":
-		Folder = "assets/cv"
+		Folder = "assets/images/cv"
 	case "photo":
-		Folder = "assets/photo"
+		Folder = "assets/images/photo"
 	default:
 		return "", errors.New("'nvalid destination")
 	}

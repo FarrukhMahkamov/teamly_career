@@ -2,7 +2,6 @@ package handler
 
 import (
 	"github.com/FarrukhMahkamov/teamly_career/internal/service"
-	"github.com/FarrukhMahkamov/teamly_career/internal/transport/http/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,8 +19,11 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	router.POST("/sign-up", h.SignUp)
 	router.POST("/sign-in", h.SignIn)
 
+	router.POST("/file-upload/:destination", h.FileUpload)
+	router.GET("/serve-file/:file_name", h.ServeFile)
+
 	api := router.Group("/api")
-	api.Use(middleware.AuthMiddleware())
+	// api.Use(middleware.AuthMiddleware())
 	{
 		v1 := api.Group("/v1")
 		{

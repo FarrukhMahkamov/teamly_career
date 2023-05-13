@@ -1,1 +1,1 @@
-SELECT * FROM tbl_user
+SELECT * FROM tbl_user_file

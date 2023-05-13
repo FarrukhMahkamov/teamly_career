@@ -31,6 +31,7 @@ type VacancyDetail interface {
 }
 
 type UserFile interface {
+	AddUserFile(UserFileRequest core.UserFileRequest) error
 }
 
 type Repository struct {
@@ -49,5 +50,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 		VacancyDetail: NewVacancyDetailRepository(db),
 		User:          NewUserRepository(db),
 		Auth:          NewAuthRepository(db),
+		UserFile:      NewUserFileRepository(db),
 	}
 }

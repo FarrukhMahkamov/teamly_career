@@ -30,6 +30,7 @@ type VacancyDetail interface {
 }
 
 type UserFile interface {
+	AddUserFile(UserFileRequest core.UserFileRequest) error
 }
 
 type Service struct {
@@ -48,5 +49,6 @@ func NewService(repository *repository.Repository) *Service {
 		VacancyDetail: NewVacancyDetailService(repository),
 		User:          NewUserService(repository),
 		Auth:          NewAuthService(repository),
+		UserFile:      NewUserFileService(repository),
 	}
 }

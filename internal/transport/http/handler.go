@@ -41,6 +41,11 @@ func (h *Handler) InitRoutes() *gin.Engine {
 				users.PUT("/personal-info/:user_id", h.UserPersonalInfoUpdate)
 				users.PUT("/user-password/:user_id", h.UpdateUserPassword)
 			}
+
+			user_files := v1.Group("/user-files")
+			{
+				user_files.POST("/", h.AddUserFile)
+			}
 		}
 	}
 

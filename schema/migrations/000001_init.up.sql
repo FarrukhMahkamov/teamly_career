@@ -46,6 +46,19 @@ CREATE TABLE tbl_vacancy_detail
     FOREIGN KEY (vacancy_id) REFERENCES tbl_vacancy(vacancy_id)
 );
 
+CREATE TABLE tbl_user_file (
+    user_file_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_size INT NOT NULL,
+    file_type VARCHAR(255) NOT NULL,
+    status_id INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (user_id) REFERENCES tbl_user(user_id)
+);
+
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -61,6 +74,11 @@ EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TRIGGER trg_update_updated_at
 BEFORE UPDATE ON tbl_vacancy
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER trg_update_updated_at_user_file
+BEFORE UPDATE ON tbl_user_file
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
 
